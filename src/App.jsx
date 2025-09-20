@@ -1,7 +1,7 @@
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Dashboard } from './pages/Dashboard';
-import { CitizensList } from './pages/CitizensTable';
+import { CitizensTable } from './pages/CitizensTable';
 import { useEffect } from 'react';
 import { generateCitizens } from './api/generateCitizens';
 
