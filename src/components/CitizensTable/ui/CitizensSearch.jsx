@@ -1,4 +1,4 @@
-import styles from '../../pages/CitizensTable/CitizensTable.module.scss'
+import styles from './CitizensTable.module.scss'
 import { Filter, Search } from 'lucide-react';
 import { useState } from 'react';
 

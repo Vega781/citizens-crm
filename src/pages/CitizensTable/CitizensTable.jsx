@@ -1,22 +1,20 @@
 // CitizensTable.jsx
 import { useState } from 'react';
-import { CustomPagination } from '../../components/Pagination/CustomPagination';
-import styles from './CitizensTable.module.scss';
-import Span from '@mui/material/Box';
 import { ProgressBar } from '../../components/Progress/ProgressBar';
-import { CitizensSearch } from '../../components/CitizensTable/CitizensSearch';
-import { CitizenTableRow } from '../../components/CitizensTable/CitizenTableRow';
-import { filteredCitizens } from '../../hooks/useSearchCitizens';
+import { CitizensSearch } from '../../components/CitizensTable/ui/CitizensSearch';
+import { CitizenTableContent } from '../../components/CitizensTable/ui/CitizenTableContent';
+import { searchCitizens } from '../../components/CitizensTable/lib/searchCitizens';
+import { usePagination } from '../../components/CitizensTable/lib/usePagination';
+import { TablePagination } from '../../components/CitizensTable/ui/TablePagination';
 
 export const CitizensTable = ({ citizens, onSelectedCitizen }) => {
-    const itemsPerPage = 30;
-    const [currentPage, setCurrentPage] = useState(1);
-    const lastIndex = currentPage * itemsPerPage;
-    const firstIndex = lastIndex - itemsPerPage;
-    const currentCitizens = citizens.slice(firstIndex, lastIndex);
-    const totalPages = Math.ceil(citizens.length / itemsPerPage);
-
     const [searchTerm, setSearchTerm] = useState('');
+    const {
+        currentPage,
+        setCurrentPage,
+        currentCitizens,
+        totalPages
+    } = usePagination(citizens, 30);
 
     const [filters, setFilters] = useState({
         city: '',
@@ -33,6 +31,8 @@ export const CitizensTable = ({ citizens, onSelectedCitizen }) => {
         return <ProgressBar />
     }
 
+    const filteredCitizens = searchCitizens(currentCitizens, searchTerm, filters);
+
     return (
         <div>
             <CitizensSearch
@@ -42,33 +42,15 @@ export const CitizensTable = ({ citizens, onSelectedCitizen }) => {
                 filters={filters}
                 setFilters={setFilters}
             />
-            <div className={styles.pagination}>
-                <CustomPagination count={totalPages} page={currentPage} onChange={handlePageChange} />
-                <Span>{`Страница ${currentPage} из ${totalPages}`}</Span>
-            </div>
-            <div className={styles.wrapper}>
-                <table className={styles.table}>
-                    <thead className={styles.table__head}>
-                        <tr>
-                            <td>Гражданин</td>
-                            <td>Контакты</td>
-                            <td>Обращения</td>
-                            <td>Статус</td>
-                            <td>Возраст</td>
-                            <td>Действия</td>
-                        </tr>
-                    </thead>
-                    <tbody className={styles.table__body}>
-                        {filteredCitizens(currentCitizens, searchTerm, filters).map((citizen) => (
-                            <CitizenTableRow
-                                key={citizen.id}
-                                citizen={citizen}
-                                onSelectedCitizen={onSelectedCitizen}
-                            />
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+            <TablePagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+            />
+            <CitizenTableContent
+                citizens={filteredCitizens}
+                onSelectedCitizen={onSelectedCitizen}
+            />
         </div >
     );
 };

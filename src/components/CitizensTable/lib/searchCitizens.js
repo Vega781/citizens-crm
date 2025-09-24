@@ -1,4 +1,4 @@
-export const filteredCitizens = (currentCitizens, searchTerm, filters) => {
+export const searchCitizens = (currentCitizens, searchTerm, filters) => {
     return currentCitizens.filter(citizen => {
         const matchesSearchTerm =
             citizen.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||

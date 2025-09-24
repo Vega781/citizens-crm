@@ -1,6 +1,6 @@
 import styles from './MainLayout.module.scss'
 import { Header } from '../components/Header/Header'
-import { Sidebar } from '../components/Sidebar/Sidebar'
+import { Sidebar } from '../components/Sidebar/ui/Sidebar'
 import { Outlet } from 'react-router-dom'
 
 export const MainLayout = () => {

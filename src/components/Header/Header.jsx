@@ -1,11 +1,11 @@
 import { useLocation } from 'react-router'
 import styles from './Header.module.scss'
-import { SidebarLinks } from '../Sidebar/SidebarLinks';
+import { SidebarLinks } from '../Sidebar/model/SidebarLinks';
 
 export const Header = () => {
     const loacation = useLocation();
     const findPageName = () => {
-        const allLinks = [...SidebarLinks.dashboards.items, ...SidebarLinks.libraries.items, ...SidebarLinks.settings.items];
+        const allLinks = SidebarLinks.dashboards.items;
         const currentLink = allLinks.find(link => link.path === loacation.pathname);
         return currentLink ? currentLink.name : '';
     }

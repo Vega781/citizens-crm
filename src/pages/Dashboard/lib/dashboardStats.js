@@ -26,11 +26,11 @@ export const dashboardStats = (stats) => {
             icon: MessageCircle,
             color: "#1976d2"
         },
-        // {
-        //     title: 'Средний заработок',
-        //     value: stats.averageIncome,
-        //     icon: RussianRuble,
-        //     color: "#f9a825"
-        // }
+        {
+            title: 'Средний заработок',
+            value: stats.averageIncome,
+            icon: RussianRuble,
+            color: "#f9a825"
+        }
     ]
 }

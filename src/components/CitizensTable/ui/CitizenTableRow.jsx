@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import styles from '../../pages/CitizensTable/CitizensTable.module.scss';
+import styles from './CitizensTable.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { User } from 'lucide-react';
-import { useAgeDeclension } from '../../hooks/useAgeDeclension';
+import { useAgeDeclension } from '../../../hooks/useAgeDeclension';
 
 export const CitizenTableRow = memo(({ citizen, onSelectedCitizen }) => {
     const navigate = useNavigate();
@@ -29,7 +29,7 @@ export const CitizenTableRow = memo(({ citizen, onSelectedCitizen }) => {
                     <a className={styles.citizen__contacts__phone} href={`tel:${citizen.phone}`}>{citizen.phone}</a>
                 </div>
                 <div className={styles.citizen__contacts__email}>
-                    <a className={styles.citizen__contacts__phone} href={`email:${citizen.email}`}>{citizen.email}</a>
+                    <a className={styles.citizen__contacts__phone} href={`mailto:${citizen.email}`}>{citizen.email}</a>
                 </div>
             </td>
             <td className={styles.citizen__appeals}>

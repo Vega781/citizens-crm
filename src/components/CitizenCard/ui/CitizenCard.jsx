@@ -1,48 +1,13 @@
 import { useState } from 'react';
 import styles from './CitizenCard.module.scss'
-import { Users, Phone, GraduationCap, Heart, Briefcase, Home, Calendar, MapPin, Mail, MessageCircle } from 'lucide-react';
-import { CitizenContacts } from './CitizenContacts';
-import { CitizenPersonal } from './CitizenPersonal';
-import { CitizenEducation } from './CitizenEducation';
-import { CitizenFamily } from './CitizenFamily';
-import { CitizenWork } from './CitizenWork';
-import { CitizenDocuments } from './CitizenDocuments';
-import { CitizenAppeals } from './CitizenAppeals';
+import { Phone, Calendar, MapPin, Mail } from 'lucide-react';
+import { useAgeDeclension } from '../../../hooks/useAgeDeclension';
+import { tabs } from '../model/CitizenCardConfig';
+import { tabComponents } from '../model/CitizenCardConfig';
 
 export const CitizenCard = ({ citizen }) => {
-
     const [activeTab, setActiveTab] = useState('personal');
-
-    const tabs = [
-        { id: 'personal', name: 'Личные данные', icon: Users },
-        { id: 'contact', name: 'Контакты', icon: Phone },
-        { id: 'education', name: 'Образование', icon: GraduationCap },
-        { id: 'family', name: 'Семья', icon: Heart },
-        { id: 'work', name: 'Работа', icon: Briefcase },
-        { id: 'documents', name: 'Документы', icon: Home },
-        { id: 'appeals', name: 'Обращения', icon: MessageCircle }
-    ];
-
-    const renderTabContent = () => {
-        switch (activeTab) {
-            case 'personal':
-                return <CitizenPersonal citizen={citizen} />;
-            case 'contact':
-                return <CitizenContacts citizen={citizen} />;
-            case 'education':
-                return <CitizenEducation citizen={citizen} />;
-            case 'family':
-                return <CitizenFamily citizen={citizen} />;
-            case 'work':
-                return <CitizenWork citizen={citizen} />;
-            case 'documents':
-                return <CitizenDocuments citizen={citizen} />;
-            case 'appeals':
-                return <CitizenAppeals citizen={citizen} />;
-            default:
-                return null;
-        }
-    };
+    const TabContent = tabComponents[activeTab];
 
     return (
         <div className={styles.content}>
@@ -52,7 +17,7 @@ export const CitizenCard = ({ citizen }) => {
                         <Calendar className={styles.summary__icon} />
                         <div>
                             <p className={styles.summary__title}>Возраст</p>
-                            <p className={styles.summary__age}>{citizen.age} лет</p>
+                            <p className={styles.summary__age}>{useAgeDeclension(citizen.age)}</p>
                         </div>
                     </div>
                     <div className={styles.summary__item}>
@@ -96,7 +61,7 @@ export const CitizenCard = ({ citizen }) => {
                     })}
                 </nav>
 
-                {renderTabContent()}
+                {TabContent && <TabContent citizen={citizen} />}
             </div>
         </div>
     )

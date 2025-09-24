@@ -37,7 +37,7 @@ export const CustomPagination = ({ count, page, onChange }) => {
         >
             <StyledIconButton
                 onClick={() => handleJumpPages(-jumpCount)}
-                disabled={page - jumpCount < 1}
+                disabled={page - jumpCount < 0}
                 size="small"
                 title={`Назад на ${jumpCount} страниц`}
             >

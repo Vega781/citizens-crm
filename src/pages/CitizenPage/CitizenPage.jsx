@@ -1,7 +1,7 @@
 import { Users, ArrowBigLeft } from 'lucide-react';
 import styles from './CitizenPage.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { CitizenCard } from '../../components/CitizenCard/CitizenCard';
+import { CitizenCard } from '../../components/CitizenCard/ui/CitizenCard';
 
 export const CitizenPage = ({ citizen }) => {
     const navigate = useNavigate();
