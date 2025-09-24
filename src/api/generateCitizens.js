@@ -5,7 +5,6 @@ export const generateCitizens = (length) => {
     const lastNames = ['Иванов', 'Петров', 'Сидоров', 'Козлов', 'Новиков', 'Морозов', 'Волков', 'Соловьев', 'Васильев', 'Зайцев'];
     const middleNames = ['Александрович', 'Дмитриевич', 'Сергеевич', 'Михайлович', 'Андреевич', 'Владимирович', 'Алексеевич', 'Евгеньевич'];
 
-    // Города с весами (крупные города чаще)
     const cities = [
         { name: 'Москва', weight: 0.25 },
         { name: 'Санкт-Петербург', weight: 0.15 },
@@ -17,7 +16,6 @@ export const generateCitizens = (length) => {
         { name: 'Самара', weight: 0.08 }
     ];
 
-    // Образование с реалистичными весами
     const educationLevels = [
         { name: 'Среднее', weight: 0.20 },
         { name: 'Среднее специальное', weight: 0.35 },
@@ -26,12 +24,10 @@ export const generateCitizens = (length) => {
         { name: 'Два высших образования', weight: 0.02 }
     ];
 
-    // Семейное положение с возрастной зависимостью
     const maritalStatuses = ['Холост/не замужем', 'Женат/замужем', 'Разведен(а)', 'Вдовец/вдова'];
 
     const professions = ['Инженер', 'Врач', 'Учитель', 'Программист', 'Менеджер', 'Бухгалтер', 'Юрист', 'Дизайнер'];
 
-    // Типы обращений с весами (ЖКХ чаще всего)
     const appealTypes = [
         { name: 'Жалоба на работу ЖКХ', weight: 0.25 },
         { name: 'Коммунальные услуги', weight: 0.15 },
@@ -52,7 +48,6 @@ export const generateCitizens = (length) => {
         'Социальная защита', 'Здравоохранение', 'Образование', 'Земельные ресурсы', 'Потребительский надзор'
     ];
 
-    // Статусы с реалистичным распределением
     const statuses = [
         { name: 'Выполнено', weight: 0.45 },
         { name: 'В работе', weight: 0.25 },
@@ -62,7 +57,6 @@ export const generateCitizens = (length) => {
         { name: 'Отклонено', weight: 0.02 }
     ];
 
-    // Приоритеты (чаще средний)
     const priorities = [
         { name: 'Низкий', weight: 0.15 },
         { name: 'Средний', weight: 0.60 },
@@ -74,7 +68,6 @@ export const generateCitizens = (length) => {
     const districts = ['Центральный', 'Северный', 'Южный', 'Восточный', 'Западный'];
     const socialStatuses = ['Работающий', 'Пенсионер', 'Студент', 'Безработный', 'Предприниматель'];
 
-    // Функции для взвешенного выбора
     const weightedChoice = (items) => {
         const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
         let random = Math.random() * totalWeight;
@@ -94,7 +87,6 @@ export const generateCitizens = (length) => {
 
     const randomBoolean = (probability = 0.5) => Math.random() < probability;
 
-    // Нормальное распределение (приближенное)
     const normalRandom = (mean, stdDev) => {
         let u = 0, v = 0;
         while (u === 0) u = Math.random();
@@ -103,7 +95,6 @@ export const generateCitizens = (length) => {
         return z * stdDev + mean;
     };
 
-    // Экспоненциальное распределение для количества обращений
     const exponentialRandom = (lambda) => {
         return -Math.log(1 - Math.random()) / lambda;
     };
@@ -113,25 +104,22 @@ export const generateCitizens = (length) => {
         const lastName = randomChoice(lastNames);
         const middleName = randomChoice(middleNames);
 
-        // Возраст с нормальным распределением (средний возраст ~45)
         let age = Math.round(normalRandom(45, 18));
-        age = Math.max(18, Math.min(85, age)); // ограничиваем 18-85 лет
+        age = Math.max(18, Math.min(85, age));
         const birthYear = new Date().getFullYear() - age;
 
         const startDate = new Date(2018, 0, 1);
         const endDate = new Date(2024, 11, 31);
         const registrationDate = randomDate(startDate, endDate);
 
-        // Количество обращений с экспоненциальным распределением (больше людей с малым количеством обращений)
         let appealsCount = Math.floor(exponentialRandom(0.8));
-        appealsCount = Math.min(appealsCount, 12); // максимум 12 обращений
+        appealsCount = Math.min(appealsCount, 12);
 
         const appeals = Array.from({ length: appealsCount }, () => {
             const minAppealDate = new Date(Math.max(registrationDate.getTime(), new Date(2020, 0, 1).getTime()));
             const maxAppealDate = new Date();
             const appealDate = randomDate(minAppealDate, maxAppealDate);
 
-            // Сроки с нормальным распределением (среднее 30 дней)
             let deadlineDays = Math.round(normalRandom(30, 15));
             deadlineDays = Math.max(5, Math.min(60, deadlineDays));
             const deadline = new Date(appealDate.getTime() + deadlineDays * 24 * 60 * 60 * 1000);
@@ -159,7 +147,7 @@ export const generateCitizens = (length) => {
                 createdDate: appealDate.toLocaleDateString('ru-RU'),
                 deadline: deadline.toLocaleDateString('ru-RU'),
                 completedDate: completedDate ? completedDate.toLocaleDateString('ru-RU') : null,
-                filesAttached: Math.floor(exponentialRandom(1.5)), // чаще 0-1 файлов
+                filesAttached: Math.floor(exponentialRandom(1.5)),
                 rating: status === 'Выполнено' ? (randomBoolean(0.75) ? Math.floor(normalRandom(3.8, 1.2)) + 1 : null) : null,
                 response: status === 'Выполнено' ? (randomBoolean(0.9) ? 'Обращение рассмотрено. Принятые меры: проведена проверка, выявленные нарушения устранены.' : 'Обращение выполнено.') : null
             };
@@ -168,11 +156,9 @@ export const generateCitizens = (length) => {
         const birthDay = Math.floor(Math.random() * 28) + 1;
         const birthMonth = Math.floor(Math.random() * 12) + 1;
 
-        // Доход зависит от возраста и образования
         const education = weightedChoice(educationLevels);
-        let baseIncome = 25000; // минимальный доход
+        let baseIncome = 25000;
 
-        // Коэффициенты по образованию
         const educationMultiplier = {
             'Среднее': 1.0,
             'Среднее специальное': 1.3,
@@ -181,7 +167,6 @@ export const generateCitizens = (length) => {
             'Два высших образования': 2.2
         };
 
-        // Коэффициент по возрасту (пик в 35-50 лет)
         const ageMultiplier = age < 25 ? 0.7 :
             age < 35 ? 1.0 :
                 age < 50 ? 1.4 :
@@ -190,7 +175,6 @@ export const generateCitizens = (length) => {
         let income = Math.round(baseIncome * educationMultiplier[education] * ageMultiplier * normalRandom(1.5, 0.8));
         income = Math.max(15000, Math.min(500000, income));
 
-        // Семейное положение зависит от возраста
         let maritalStatus;
         if (age < 25) {
             maritalStatus = randomBoolean(0.8) ? maritalStatuses[0] : maritalStatuses[1];
@@ -210,7 +194,6 @@ export const generateCitizens = (length) => {
                     rand < 0.90 ? maritalStatuses[2] : maritalStatuses[0];
         }
 
-        // Дети зависят от возраста и семейного положения
         const hasChildren = age > 25 && maritalStatus !== maritalStatuses[0] ?
             randomBoolean(0.7) :
             randomBoolean(0.2);
@@ -233,17 +216,17 @@ export const generateCitizens = (length) => {
         const passportNumber = Math.floor(Math.random() * 900000) + 100000;
         const inn = String(Math.floor(Math.random() * 900000000000) + 100000000000);
 
-        // Социальный статус зависит от возраста
+
         let socialStatus;
         if (age >= 60) {
-            socialStatus = randomBoolean(0.7) ? socialStatuses[1] : socialStatuses[0]; // Пенсионер или Работающий
+            socialStatus = randomBoolean(0.7) ? socialStatuses[1] : socialStatuses[0];
         } else if (age < 25) {
             socialStatus = randomBoolean(0.4) ? socialStatuses[2] :
-                randomBoolean(0.8) ? socialStatuses[0] : socialStatuses[3]; // Студент, Работающий или Безработный
+                randomBoolean(0.8) ? socialStatuses[0] : socialStatuses[3];
         } else {
             const rand = Math.random();
             socialStatus = rand < 0.80 ? socialStatuses[0] :
-                rand < 0.88 ? socialStatuses[4] : socialStatuses[3]; // Работающий, Предприниматель или Безработный
+                rand < 0.88 ? socialStatuses[4] : socialStatuses[3];
         }
 
         return {
@@ -260,7 +243,7 @@ export const generateCitizens = (length) => {
             education,
             maritalStatus,
             profession: randomChoice(professions),
-            status: randomBoolean(0.88) ? 'active' : 'inactive', // больше активных
+            status: randomBoolean(0.88) ? 'active' : 'inactive',
             income,
             hasChildren,
             childrenCount,
