@@ -8,11 +8,11 @@ export const AppRoutes = ({ citizens, selectedCitizen, setSelectedCitizen }) => 
     return (
         <Routes>
             <Route element={<MainLayout />}>
-                <Route path="/dashboard" element={<Dashboard citizens={citizens} />} />
-                <Route path="/citizens" element={<CitizensTable citizens={citizens} onSelectedCitizen={setSelectedCitizen} />} />
-                <Route path="/citizen/:id" element={<CitizenPage citizen={selectedCitizen} />} />
+                <Route path="/citizens-crm/dashboard" element={<Dashboard citizens={citizens} />} />
+                <Route path="/citizens-crm/citizens" element={<CitizensTable citizens={citizens} onSelectedCitizen={setSelectedCitizen} />} />
+                <Route path="/citizens-crm/citizen/:id" element={<CitizenPage citizen={selectedCitizen} />} />
             </Route>
-            <Route path="/" element={<Navigate to="/citizens" />} />
+            <Route path="/" element={<Navigate to="/citizens-crm/citizens" />} />
         </Routes>
     )
 }
