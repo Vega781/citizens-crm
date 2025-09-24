@@ -1,4 +1,5 @@
 import { ChartArea, Contact } from 'lucide-react'
+import { ROUTES } from '../../../providers/Routes.config';
 
 export const SidebarLinks = {
     dashboards: {
@@ -7,12 +8,12 @@ export const SidebarLinks = {
 
             {
                 name: 'Картотека',
-                path: '/citizens',
-                icon: Contact
+                path: `${ROUTES.CITIZENS}`,
+                icon: Contact,
             },
             {
                 name: 'Статистика',
-                path: '/dashboard',
+                path: `${ROUTES.DASHBOARD}`,
                 icon: ChartArea
             },
         ]

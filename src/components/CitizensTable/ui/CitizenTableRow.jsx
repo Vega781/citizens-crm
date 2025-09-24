@@ -3,13 +3,14 @@ import styles from './CitizensTable.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { User } from 'lucide-react';
 import { useAgeDeclension } from '../../../hooks/useAgeDeclension';
+import { getRoutes } from '../../../providers/Routes.config';
 
 export const CitizenTableRow = memo(({ citizen, onSelectedCitizen }) => {
     const navigate = useNavigate();
 
     const handleSelectCitizen = (citizen) => {
         onSelectedCitizen(citizen);
-        navigate(`/citizen/${citizen.id}`);
+        navigate(getRoutes.citizen(citizen.id));
     }
     return (
         <tr key={citizen.id} className={styles.table_row}>

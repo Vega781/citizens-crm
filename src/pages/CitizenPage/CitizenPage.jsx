@@ -2,6 +2,7 @@ import { Users, ArrowBigLeft } from 'lucide-react';
 import styles from './CitizenPage.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { CitizenCard } from '../../components/CitizenCard/ui/CitizenCard';
+import { ROUTES } from '../../providers/Routes.config';
 
 export const CitizenPage = ({ citizen }) => {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ export const CitizenPage = ({ citizen }) => {
                 <div className={styles.header__content}>
                     <div className={styles.header__left}>
                         <button
-                            onClick={() => navigate('/citizens')}
+                            onClick={() => navigate(ROUTES.CITIZENS)}
                             className={styles.backButton}
                         >
                             <ArrowBigLeft />
