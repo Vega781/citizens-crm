@@ -1,0 +1,13 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    padding: 16px;
+
+    &__title {
+        width: 260px;
+    }
+
+    &__subtitle {
+        margin-left: 5px;
+    }
+}

@@ -1,0 +1,37 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &__title {
+        margin-bottom: 2rem;
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+
+    &__stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1rem;
+    }
+
+    &__charts {
+        display: grid;
+        grid-template-columns: 4fr 4fr;
+        gap: 10px;
+
+        // &__appealsByDistrict,
+        // &__incomeByProfession {
+        //     grid-column: 1 / -1;
+        // }
+
+        @media (max-width: 1320px) {
+            grid-template-columns: 1fr;
+        }
+    }
+}

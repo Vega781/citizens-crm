@@ -1,0 +1,46 @@
+.mainLayout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100%;
+
+    &__header {
+        width: 100%;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        width: 100%;
+    }
+
+    &__outlet {
+        border-radius: 10px;
+        background-color: rgb(238, 242, 246);
+        width: 100%;
+        padding: 20px;
+        margin: 0 20px;
+        box-sizing: border-box;
+        overflow: auto;
+        height: calc(100vh - 80px);
+
+        &::-webkit-scrollbar {
+            width: 6px;
+            margin-left: 10px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-button {
+            display: none;
+        }
+    }
+}

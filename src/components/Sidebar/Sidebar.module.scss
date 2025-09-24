@@ -1,0 +1,48 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 260px;
+    width: 100%;
+    padding: 10px;
+    padding-top: 0;
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        &__title {
+            line-height: 1.66;
+            color: rgb(18, 25, 38);
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 6px;
+            text-transform: capitalize;
+        }
+    }
+
+    &__item {
+        padding: 10px 16px;
+        border-radius: 10px;
+        color: black;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        user-select: none;
+        cursor: pointer;
+
+        &__active {
+            background-color: rgb(94, 53, 177, 0.2);
+            color: rgb(94, 53, 177);
+        }
+
+        &:hover {
+            background-color: rgb(94, 53, 177, 0.2);
+            color: rgb(94, 53, 177);
+        }
+    }
+}
